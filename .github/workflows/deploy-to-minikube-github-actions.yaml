@@ -20,17 +20,21 @@ jobs:
           echo -n "verifying images:"
           docker images         
     - name: Deploy to minikube
-      run:
+      run: |
         kubectl apply -f minikube_deployment.yml
-    - name: Deploy service to minikube
-      run:
         kubectl apply -f minikube_service.yml
     - name: Cek running pod
-      run:
+      run: |
         kubectl get pod
-    - name: Cek running service
-      run:
         kubectl get svc
+    - name: Wait for Kubernetes Pod
+      run: |
+        while [[ "$(kubectl get pod -o jsonpath='{.status.phase}')" != "Running" ]]; do
+          echo "Pod is not running yet, waiting..."
+          sleep 30
+        done
+
+        echo "Pod is now running!"
     - name: Test service URLs
       run: |
           minikube service list
