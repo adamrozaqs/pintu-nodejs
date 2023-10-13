@@ -21,10 +21,10 @@ jobs:
           docker images         
     - name: Deploy to minikube
       run:
-        kubectl apply -f minikube_deployment.yaml
+        kubectl apply -f minikube_deployment.yml
     - name: Deploy service to minikube
       run:
-        kubectl apply -f minikube_service.yaml
+        kubectl apply -f minikube_service.yml
     - name: Test service URLs
       run: |
           minikube service pingpongapp-service --url
