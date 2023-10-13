@@ -29,6 +29,14 @@ jobs:
       run: |
         kubectl get pod
         kubectl get svc
+    - name: Wait for Kubernetes Pod
+      run: |
+        while [[ "$(kubectl get pod -o jsonpath='{.status.phase}')" != "Running" ]]; do
+          echo "Pod is not running yet, waiting..."
+          sleep 10s
+        done
+
+        echo "Pod is now running!"    
     - name: Test service URLs
       run: |
           minikube service list
