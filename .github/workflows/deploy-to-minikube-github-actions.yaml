@@ -4,19 +4,19 @@ on: [push]
   
 jobs:
   job1:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     name: build Node.js Docker Image and deploy to minikube
     steps:
     - uses: actions/checkout@v2
     - name: Start minikube
-      uses: medyagh/setup-minikube@master
+      run: minikube start
     - name: Try the cluster !
       run: kubectl get pods -A
     - name: Build image
       run: |
           export SHELL=/bin/bash
           eval $(minikube -p minikube docker-env)
-          docker build -f ./Dockerfile -t devopshint/node-app:latest .
+          docker build -f ./Dockerfile -t cicd_pingpong:latest .
           echo -n "verifying images:"
           docker images         
     - name: Deploy to minikube
