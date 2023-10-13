@@ -31,7 +31,7 @@ jobs:
       run: |
         while [[ "$(kubectl get pod -o jsonpath='{.status.phase}')" != "Running" ]]; do
           echo "Pod is not running yet, waiting..."
-          sleep 10
+          sleep 30s
         done
 
         echo "Pod is now running!"
