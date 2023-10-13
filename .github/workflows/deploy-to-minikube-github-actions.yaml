@@ -25,6 +25,12 @@ jobs:
     - name: Deploy service to minikube
       run:
         kubectl apply -f minikube_service.yml
+    - name: Cek running pod
+      run:
+        kubectl get pod
+    - name: Cek running service
+      run:
+        kubectl get svc
     - name: Test service URLs
       run: |
           minikube service list
