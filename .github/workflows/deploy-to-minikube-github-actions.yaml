@@ -27,4 +27,5 @@ jobs:
         kubectl apply -f minikube_service.yml
     - name: Test service URLs
       run: |
+          minikube service list
           minikube service pingpongapp-service --url
